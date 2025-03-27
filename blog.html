@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Homna ltd</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/blog.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <img src="assets/image/logoen.png" alt="homna Logo">
+  </a>
+  <div class="hamburger-menu" style="color: black;">
+    <div class="bar" style="background-color: black;"></div>
+    <div class="bar" style="background-color: black;"></div>
+    <div class="bar" style="background-color: black;"></div>
+  </div>
+  <div class="nav-overlay">
+    <div class="menu-container">
+      <div class="menu-content">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a><div class="underline"></div></li>
+          <li><a href="about.html">About</a><div class="underline"></div></li>
+          <li><a href="#" class="service-link">Solution</a><div class="underline"></div></li>
+          <li><a href="projects.html">Projects</a><div class="underline"></div></li>
+          <li><a href="blog.html">Blog</a><div class="underline"></div></li>
+          <li><a href="contact.html">Contact</a><div class="underline"></div></li>
+        </ul>
+        <!-- Return Path Button -->
+        <div class="return-path">
+          <a href="#" class="return-path-button">Return</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Solutions Grid -->
+<div class="solutions-grid">
+  <!-- Go Back Button -->
+  <button class="go-back-button">←</button>
+
+  <!-- Solution Links -->
+  <div class="solution-item">
+    <a href="solutions/Basement.html">Basement</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Bathroom.html">Bathroom</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Expansion-Joints.html">Expansion Joints</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/External-Wall.html">External Wall</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/internal-wall.html">Internal Wall</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Plaster.html">Plaster</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Roof.html">Roof</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/swimming-pool.html">Swimming Pool</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Tile-Fixing.html">Tile Fixing</a>
+  </div>
+  <div class="divider"></div>
+
+  <div class="solution-item">
+    <a href="solutions/Water-Tank.html">Water Tank</a>
+  </div>
+</div>
+
+
+<!-- Popup Modal -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h2 id="popup-title"></h2>
+    <img id="popup-image" src="" alt="">
+    <p id="popup-text"></p>
+  </div>
+</div>
+
+<!-- Blog Posts Section -->
+<div class="container">
+  <h1 class="section-title">News and blogs</h1>
+
+  <div class="blog-grid">
+    <!-- Left Column (Text Content) -->
+    <div class="left-column">
+      <div class="blog-card center-blog-text" onclick="openPopup('Arup signs MoU with industry leaders', 'https://picsum.photos/530/520', 'Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...')">
+        <h2 class="blog-title">Arup signs MoU with industry leaders to promote nature inclusivity</h2>
+        <p class="blog-excerpt">Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...</p>
+        <div class="date">13th December 2024</div>
+      </div>
+    </div>
+
+    <!-- Center Column (Main Blog) -->
+    <div class="center-column">
+      <div class="blog-card center-blog" onclick="openPopup('Main Blog Post', 'https://picsum.photos/530/520', 'Main blog post content goes here...')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/530/520')"></div>
+      </div>
+    </div>
+
+    <!-- Right Column (Side Blog) -->
+    <div class="right-column">
+      <div class="blog-card right-blog" onclick="openPopup('Yantai City\'s Sun Tower opens in China', 'https://picsum.photos/330/240', 'Yantai City has inaugurated its iconic Sun Tower, blending modern architecture with cultural heritage.')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/330/240')"></div>
+        <h3 class="blog-title">Yantai City's Sun Tower opens in China</h3>
+        <div class="date">12th December 2024</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Latest Posts Section -->
+<section class="container">
+  <h2 class="section-title">Latest Posts</h2>
+  <div class="posts-grid">
+    <!-- Post 1 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 1', 'assets/image/2.jpeg', 'This is the content of Blog Post 1.')">
+      <div class="post-image" style="background-image: url('assets/image/2.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 1</h3>
+      <span class="post-date">March 15, 2024</span>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 2', 'assets/image/1.jpeg', 'This is the content of Blog Post 2.')">
+      <div class="post-image" style="background-image: url('assets/image/1.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 2</h3>
+      <span class="post-date">March 16, 2024</span>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 3', 'assets/image/3.jpeg', 'This is the content of Blog Post 3.This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1')">
+      <div class="post-image" style="background-image: url('assets/image/3.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 3</h3>
+      <span class="post-date">March 17, 2024</span>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">
+        <p class="animated-text">Connecting worlds through innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel magna sit amet nulla efficitur vestibulum.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-links-col">
+          <a href="about.html" class="hover-grow">About</a>
+          <a href="solutions" class="hover-grow">Services</a>
+          <a href="solutions" class="hover-grow">Products</a>
+          <a href="projects.html" class="hover-grow">Projects</a>
+        </div>
+        <div class="footer-links-col">
+          <a href="blog.html" class="hover-grow">News</a>
+          <a href="contact.html" class="hover-grow">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Bottom Links -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-links">
+        <a href="commitment.html" class="link-underline">Commitment</a>
+        <a href="privacy.html" class="link-underline">Privacy Policy</a>
+        <a href="legal.html" class="link-underline">Legal Information</a>
+        <a href="suppliers.html" class="link-underline">Suppliers</a>
+        <a href="cookie.html" class="link-underline">Cookie Policy</a>
+      </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Location Section -->
+    <div class="footer-locations">
+      <div class="location-container">
+        <a href="https://maps.google.com/maps?q=mainoffice+remera+1+kk+st.+4+mnamn" target="_blank" class="location-link">📍 Main Office, Remera 1 KK St. 4 Mnamn</a>
+        <a href="https://maps.google.com/maps?q=new+york" target="_blank" class="location-link">📍 New York</a>
+        <a href="https://maps.google.com/maps?q=london" target="_blank" class="location-link">📍 London</a>
+      </div>
+    </div>
+
+    <!-- Social Section -->
+    <div class="footer-social">
+      <p class="logo-glow">@HOMNA 2025</p>
+      <div class="social-icons">
+        <a href="#" class="social-icon hover-float">
+          <img src="assets/image/Linkedin.png" alt="Facebook">
+        </a>
+        <a href="#" class="social-icon hover-float">
+          <img src="assets/image/X.png" alt="LinkedIn">
+        </a>
+        <a href="#" class="social-icon hover-float">
+          <img src="assets/image/Insta.png" alt="LinkedIn">
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer Logo -->
+    <div class="footer-logo">
+      <p class="logo-glow">HOMNA</p>
+    </div>
+
+
+  </footer>
+
+<script src="assets/js/blog.js"></script>
+</body>
+</html>

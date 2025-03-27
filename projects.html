@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Homna ltd</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/css/projects.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <img src="assets/image/logoen.png" alt="homna Logo">
+    </a>
+    <div class="hamburger-menu" style="color: black;">
+        <div class="bar" style="background-color: black;"></div>
+        <div class="bar" style="background-color: black;"></div>
+        <div class="bar" style="background-color: black;"></div>
+    </div>
+    <div class="nav-overlay">
+        <div class="menu-container">
+            <div class="menu-content">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a><div class="underline"></div></li>
+                    <li><a href="about.html">About</a><div class="underline"></div></li>
+                    <li><a href="#" class="service-link">Solution</a><div class="underline"></div></li>
+                    <li><a href="projects.html">Projects</a><div class="underline"></div></li>
+                    <li><a href="blog.html">Blog</a><div class="underline"></div></li>
+                    <li><a href="contact.html">Contact</a><div class="underline"></div></li>
+                </ul>
+                <!-- Return Path Button -->
+                <div class="return-path">
+                    <a href="#" class="return-path-button">Return</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Solutions Grid -->
+<div class="solutions-grid">
+    <!-- Go Back Button -->
+    <button class="go-back-button">←</button>
+
+    <!-- Solution Links -->
+    <div class="solution-item">
+        <a href="solutions/Basement.html">Basement</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Bathroom.html">Bathroom</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Expansion-Joints.html">Expansion Joints</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/External-Wall.html">External Wall</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/internal-wall.html">Internal Wall</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Plaster.html">Plaster</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Roof.html">Roof</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/swimming-pool.html">Swimming Pool</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Tile-Fixing.html">Tile Fixing</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="solutions/Water-Tank.html">Water Tank</a>
+    </div>
+</div>
+
+<main class="projects-section">
+    <h2>Our Projects</h2>
+    <p class="projects-intro">
+        Explore some of our most innovative and impactful projects. From cutting-edge construction solutions to sustainable designs, our work speaks for itself. Each project reflects our commitment to quality, creativity, and excellence.
+    </p>
+    <div class="projects-grid" id="projects-grid">
+        <!-- Projects will be dynamically added here using JavaScript -->
+    </div>
+    </div>
+    <p class="gallery-instruction">Click on the images to see them bigger.</p>
+    </div>
+</main>
+
+<!-- Popup Modal -->
+<div id="project-popup" class="popup-modal">
+    <div class="popup-content">
+        <!-- Sticky Close Button -->
+        <img class="close-popup" src="assets/image/circle.png" alt="Close">
+
+        <!-- Full-Width Image -->
+        <div class="popup-image-container">
+            <img class="popup-image" src="" alt="Project Image">
+        </div>
+
+        <!-- Left-Aligned Header and Description -->
+        <div class="popup-text-container">
+            <div class="popup-text-left">
+                <h2 class="project-title"></h2>
+                <p class="popup-description"></p>
+            </div>
+
+            <!-- Right-Aligned Solutions Used -->
+            <div class="popup-solutions">
+                <h3>Solutions Used</h3>
+                <ul class="solutions-list">
+                    <!-- Solutions will be added dynamically by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="popup-gallery">
+            <div class="gallery-images">
+                <!-- Gallery images will be added dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-text">
+            <p class="animated-text">Connecting worlds through innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel magna sit amet nulla efficitur vestibulum.</p>
+        </div>
+        <div class="footer-links">
+            <div class="footer-links-col">
+                <a href="about.html" class="hover-grow">About</a>
+                <a href="solutions" class="hover-grow">Services</a>
+                <a href="solutions" class="hover-grow">Products</a>
+                <a href="projects.html" class="hover-grow">Projects</a>
+            </div>
+            <div class="footer-links-col">
+                <a href="blog.html" class="hover-grow">News</a>
+                <a href="contact.html" class="hover-grow">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Bottom Links -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-links">
+            <a href="commitment.html" class="link-underline">Commitment</a>
+            <a href="privacy.html" class="link-underline">Privacy Policy</a>
+            <a href="legal.html" class="link-underline">Legal Information</a>
+            <a href="suppliers.html" class="link-underline">Suppliers</a>
+            <a href="cookie.html" class="link-underline">Cookie Policy</a>
+        </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Location Section -->
+    <div class="footer-locations">
+        <div class="location-container">
+            <a href="https://maps.google.com/maps?q=mainoffice+remera+1+kk+st.+4+mnamn" target="_blank" class="location-link">📍 Main Office, Remera 1 KK St. 4 Mnamn</a>
+            <a href="https://maps.google.com/maps?q=new+york" target="_blank" class="location-link">📍 New York</a>
+            <a href="https://maps.google.com/maps?q=london" target="_blank" class="location-link">📍 London</a>
+        </div>
+    </div>
+
+    <!-- Social Section -->
+    <div class="footer-social">
+        <p class="logo-glow">@HOMNA 2025</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon hover-float">
+                <img src="assets/image/Linkedin.png" alt="Facebook">
+            </a>
+            <a href="#" class="social-icon hover-float">
+                <img src="assets/image/X.png" alt="LinkedIn">
+            </a>
+            <a href="#" class="social-icon hover-float">
+                <img src="assets/image/Insta.png" alt="LinkedIn">
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer Logo -->
+    <div class="footer-logo">
+        <p class="logo-glow">HOMNA</p>
+    </div>
+
+
+</footer>
+
+<script src="assets/js/projects.js"></script>
+</body>
+</html>

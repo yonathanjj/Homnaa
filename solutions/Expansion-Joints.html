@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expansion joints - Homna ltd</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+</head>
+<style>
+    /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Page Background */
+body {
+    background: #f8f4ff !important;
+  font-family: 'Playfair Display', serif;
+  overflow-x: hidden;
+}
+
+
+/* General navbar styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f4ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  z-index: 1000;
+  height: 100px;
+  transition: all 0.3s ease;
+}
+
+/* Logo Styling */
+.navbar a.logo img {
+  width: 180px;
+  transition: transform 0.3s ease;
+}
+
+/* Full-screen Overlay Menu */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(8, 42, 90, 0.98);
+  backdrop-filter: blur(15px);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.nav-overlay.active {
+  transform: translateX(0);
+}
+
+/* Menu Container Structure */
+.menu-container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0 40px;
+}
+
+/* Menu Content */
+.menu-content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Left Column Styling (Nav Links) */
+.nav-links {
+  width: 100%;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  list-style-type: none; /* Ensures no bullets appear */
+    margin:0.9rem 0; /* Increased vertical spacing */
+}
+
+
+/* Main Nav Links Styling */
+.nav-links a {
+  color: #fff;
+  font-size: 2.5rem;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  transform: translateY(-5px);
+  color: #7ab4ff;
+}
+
+/* Underline Divider */
+.underline {
+  position: absolute;
+  bottom: -5px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%; /* Adjust width as needed */
+  height: 2px;
+  background-color: #7ab4ff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-links li:hover .underline {
+  opacity: 1;
+}
+
+/* Explore Products Button Styling */
+.explore-products {
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.explore-products:hover {
+  background-color: #7ab4ff;
+  border-color: #7ab4ff;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    height: 70px;
+    padding: 15px 5%;
+  }
+
+  .navbar a.logo img {
+    width: 120px;
+  }
+
+  .nav-links a {
+    font-size: 2rem;
+  }
+
+  .menu-container {
+    flex-direction: column;
+    width: 100%;
+    padding: 40px 0;
+    align-items: center;
+  }
+
+  .nav-links,
+  .contact-section {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .underline {
+    width: 70%;
+  }
+
+  .explore-products {
+    font-size: 1.3rem;
+    padding: 0.8rem 1.8rem;
+  }
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+  display: block;
+}
+
+.hamburger-menu .bar {
+  width: 35px;
+  height: 3px;
+  background: #fff;
+  margin: 6px 0;
+  transition: all 0.3s ease;
+}
+
+/* Animated X Transformation */
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+  .hamburger-menu .bar {
+    width: 30px;
+    height: 2.5px;
+  }
+}
+
+/* Return Path Button */
+.return-path {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.return-path-button {
+    display: inline-block;
+    padding: 15px 35px;
+    background: #f8f4ff;
+    color: #000000;
+    border: none;
+    border-radius: 35px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.return-path-button:hover {
+    background: #f8f4ff;
+    transform: translateY(-2px);
+}
+
+.return-path-button::before {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+/* Solutions Grid */
+.solutions-grid {
+  display: none; /* Hidden by default */
+  flex-direction: column; /* Stack solutions vertically */
+  gap: 10px; /* Space between items */
+  padding: 80px 20px 20px; /* Padding for the grid */
+  background: rgba(8, 42, 90, 0.98);
+  backdrop-filter: blur(15px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.solutions-grid.active {
+  display: flex; /* Show the grid when active */
+}
+
+/* Solution Item */
+.solution-item {
+  padding: 15px 20px; /* Padding for each solution */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center;
+}
+
+.solution-item a {
+  color: #fff; /* White text */
+  font-size: 1.5rem; /* Larger font size */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  transition: color 0.3s ease;
+}
+
+.solution-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+  transform: translateX(10px); /* Slight shift on hover */
+}
+
+.solution-item a:hover {
+  color: #7ab4ff; /* Change text color on hover */
+}
+
+/* Divider Line */
+.divider {
+  width: 100%;
+  height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+}
+
+/* Go Back Button */
+.go-back-button {
+  position: fixed; /* Fixed position to keep it visible */
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px; /* Adjusted padding for a smaller button */
+  background: #f8f4ff;
+  color: #000000;
+  border: none;
+  border-radius: 50%; /* Makes the button circular */
+  cursor: pointer;
+  font-size: 1.5rem; /* Larger font size for the arrow */
+  transition: all 0.3s ease;
+  z-index: 1001; /* Ensure it's above the grid */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 50px; /* Fixed width for a perfect circle */
+  height: 50px; /* Fixed height for a perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.go-back-button:hover {
+  background-color: #f8f4ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .solution-item a {
+    font-size: 1.2rem; /* Smaller font size for mobile */
+  }
+}
+
+
+
+
+
+
+
+/* Reset Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Banner Section */
+.banner {
+    position: relative;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.banner img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+}
+
+.banner h1 {
+    position: absolute;
+    top: 80%;          /* Keeps vertical position (80% from top) */
+    left: 4rem;        /* Fixed 4rem gap from the left */
+    transform: translateY(-50%); /* Centers vertically (optional) */
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    font-size: clamp(1.5rem, 5vw, 2.25rem); /* 24px-36px with responsive scaling */
+    margin: 0;
+    max-width: calc(100% - 8rem); /* Prevents overflow (4rem x2 for padding) */
+    white-space: nowrap; /* Keeps text in one line (adjust if needed) */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .banner h1 {
+        left: 2rem;     /* Reduce left gap on smaller screens */
+        max-width: calc(100% - 4rem);
+        white-space: normal; /* Allow text wrapping */
+    }
+}
+
+@media (max-width: 480px) {
+    .banner h1 {
+        left: 1rem;     /* Minimal left gap on mobile */
+        top: 70%;       /* Adjust vertical position if needed */
+        font-size: 1.25rem;
+    }
+}
+
+/* Product Grid Styles */
+.products {
+    width: 90%;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.products h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2E368F;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.product {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(46, 54, 143, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(46, 54, 143, 0.15);
+}
+
+.product-image-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.product img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product:hover img {
+    transform: scale(1.05);
+}
+
+.pdf-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.pdf-btn i {
+    margin-right: 6px;
+    font-size: 0.9rem;
+}
+
+.view-btn {
+    background: rgba(255,255,255,0.9);
+    color: #2E368F;
+}
+
+.download-btn {
+    background: #2E368F;
+    color: white;
+}
+
+.view-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.download-btn:hover {
+    background: #1a2163;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.product-name {
+    padding: 18px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    background: white;
+}
+
+/* Font Awesome for icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .pdf-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .pdf-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products {
+        width: 95%;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Why Choose Section - Modern Design */
+.why-choose {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 80px auto;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    gap: 40px;
+}
+
+.left, .right {
+    width: 48%;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(46, 54, 143, 0.08);
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #2E368F;
+    margin-bottom: 30px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #2E368F;
+    border-radius: 3px;
+}
+
+/* Benefits Section */
+.benefits-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.benefit {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.benefit-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 4px;
+}
+
+.benefit-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.benefit-content h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+        text-align :left;
+}
+
+.benefit-content p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    text-align :left;
+}
+
+/* Calculator Section */
+#calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group select,
+.form-group input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    outline: none;
+    border-color: #2E368F;
+    background: white;
+    box-shadow: 0 0 0 2px rgba(46, 54, 143, 0.1);
+}
+
+.calculate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: #2E368F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.calculate-btn:hover {
+    background: #1a2163;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.calculate-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.result-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f5f7ff;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.result-label {
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.result-value {
+    font-size: 1.4rem;
+    color: #2E368F;
+    font-weight: 700;
+}
+
+.disclaimer {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.5;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .why-choose {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 100%;
+    }
+
+    .right {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .left, .right {
+        padding: 30px 20px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .benefit {
+        gap: 15px;
+    }
+
+    .benefit-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .benefit-content p {
+        font-size: 0.95rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* Base Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f8f9fa;
+    overflow-x: hidden;
+}
+
+/* Main Footer Styles */
+.footer {
+    background: linear-gradient(135deg, #2E368F 0%, #1A237E 100%);
+    color: white;
+    padding: 40px 0 20px;
+    position: relative;
+    margin-bottom: -20px; /* Fixes white space issue */
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+}
+
+.footer-content {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 30px;
+}
+
+.footer-text {
+    width: 45%;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    animation: textReveal 1s ease-out;
+}
+
+/* Links Section */
+.footer-links {
+    display: flex;
+    gap: 60px;
+    font-size: 1.2rem;
+}
+
+.footer-links-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-links-col a {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+/* Bottom Section */
+.footer-bottom {
+    width: 90%;
+    margin: 20px auto;
+    color: #ffffff;
+    text-align: center; /* Center align text */
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Space between links and locations */
+}
+
+.footer-bottom-links a {
+    color: white !important; /* Force white text */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: #7ab4ff !important; /* Optional: Change color on hover */
+}
+
+/* Social Section */
+.footer-social {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px;
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.social-icon img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+/* Logo Section */
+.footer-logo {
+    width: 90%;
+    margin: 20px auto;
+    text-align: right;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Location Section */
+.footer-locations {
+    width: 100%;
+    padding: 40px 0;
+    background: rgba(255, 255, 255, 0.05); /* Slight background for contrast */
+    margin-top: 20px; /* Space above the location section */
+}
+
+.location-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.location-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-link:hover {
+    color: #7ab4ff; /* Change color on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+}
+
+/* Animations */
+@keyframes textReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+    100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+}
+
+.pulse { animation: pulseGlow 2s infinite; }
+
+/* Interactive Elements */
+.hover-grow:hover { transform: translateX(8px) scale(1.05); }
+
+.link-underline {
+    position: relative;
+    padding-bottom: 3px;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+}
+
+.link-underline:hover::after { width: 100%; }
+
+.hover-float:hover { transform: translateY(-5px); }
+
+.glow-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.logo-glow { text-shadow: 0 0 15px rgba(255,255,255,0.4); }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .footer-content { flex-direction: column; }
+    .footer-text { width: 100%; text-align: center; }
+    .footer-links { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .footer { padding: 30px 0 20px; }
+
+    .footer-text { font-size: 1.1rem; }
+
+    .footer-bottom-links {
+        flex-direction: column;
+                align-items: center; /* Centers the links */
+        text-align: center;
+        gap: 15px;
+    }
+
+.footer-links-col {
+        align-items: center; /* Centers each column of links */
+    }
+    .footer-social {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+    }
+
+    .location-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-links { flex-direction: column; gap: 25px; }
+    .footer-logo { text-align: center; }
+}
+
+
+
+/* Info Modal Overlay */
+.info-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.info-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Info Modal Content */
+.info-modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.info-modal-overlay.active .info-modal-content {
+  transform: scale(1);
+}
+
+/* Close Button */
+.close-info-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.close-info-modal:hover {
+  color: #ff6347;
+}
+
+/* Info Modal Title */
+.info-modal-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2E368F;
+}
+
+/* Info Modal Text */
+.info-modal-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+</style>
+<body>
+
+
+<nav class="navbar">
+    <a href="../index.html" class="logo">
+        <img src="/assets/image/logoen.png" alt="homna Logo">
+    </a>
+    <div class="hamburger-menu" style="color: black;">
+        <div class="bar" style="background-color: black;"></div>
+        <div class="bar" style="background-color: black;"></div>
+        <div class="bar" style="background-color: black;"></div>
+    </div>
+    <div class="nav-overlay">
+        <div class="menu-container">
+            <div class="menu-content">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a><div class="underline"></div></li>
+                    <li><a href="../about.html">About</a><div class="underline"></div></li>
+                    <li><a href="#" class="service-link">Solution</a><div class="underline"></div></li>
+                    <li><a href="../projects.html">Projects</a><div class="underline"></div></li>
+                    <li><a href="../blog.html">Blog</a><div class="underline"></div></li>
+                    <li><a href="../contact.html">Contact</a><div class="underline"></div></li>
+                </ul>
+                <!-- Return Path Button -->
+                <div class="return-path">
+                    <a href="#" class="return-path-button">return</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Solutions Grid -->
+<div class="solutions-grid">
+    <!-- Go Back Button -->
+    <button class="go-back-button">←</button>
+
+    <!-- Solution Links -->
+    <div class="solution-item">
+        <a href="../solutions/Basement.html">Basement</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Bathroom.html">Bathroom</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Expansion-Joints.html">Expansion Joints</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/External-Wall.html">External Wall</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/internal-wall.html">Internal Wall</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Plaster.html">Plaster</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Roof.html">Roof</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/swimming-pool.html">Swimming Pool</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Tile-Fixing.html">Tile Fixing</a>
+    </div>
+    <div class="divider"></div>
+
+    <div class="solution-item">
+        <a href="../solutions/Water-Tank.html">Water Tank</a>
+    </div>
+</div>
+
+
+<!-- Banner Section -->
+<section class="banner">
+    <img src="../assets/image/joint.jpg" alt="Internal Wall Solution">
+    <h1>Expansion Joints</h1>
+</section>
+
+<!-- Product Grid Section -->
+<section class="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product">
+            <div class="product-image-container">
+                <img src="/assets/image/1.jpeg" alt="Product 1">
+                <div class="pdf-actions">
+                    <a href="products/product1.pdf" target="_blank" class="pdf-btn view-btn">
+                        <i class="fas fa-eye"></i> View PDF
+                    </a>
+                    <a href="products/product1.pdf" download class="pdf-btn download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="product-name">Industrial Solution X-2000</div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Product 2">
+                <div class="pdf-actions">
+                    <a href="products/product2.pdf" target="_blank" class="pdf-btn view-btn">
+                        <i class="fas fa-eye"></i> View PDF
+                    </a>
+                    <a href="products/product2.pdf" download class="pdf-btn download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="product-name">Precision Tool Y-500</div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x200?text=Product+3" alt="Product 3">
+                <div class="pdf-actions">
+                    <a href="products/product3.pdf" target="_blank" class="pdf-btn view-btn">
+                        <i class="fas fa-eye"></i> View PDF
+                    </a>
+                    <a href="products/product3.pdf" download class="pdf-btn download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="product-name">Advanced Component Z-7</div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x200?text=Product+4" alt="Product 4">
+                <div class="pdf-actions">
+                    <a href="products/product4.pdf" target="_blank" class="pdf-btn view-btn">
+                        <i class="fas fa-eye"></i> View PDF
+                    </a>
+                    <a href="products/product4.pdf" download class="pdf-btn download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="product-name">Eco-Friendly Model E-42</div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product">
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/300x200?text=Product+5" alt="Product 5">
+                <div class="pdf-actions">
+                    <a href="products/product5.pdf" target="_blank" class="pdf-btn view-btn">
+                        <i class="fas fa-eye"></i> View PDF
+                    </a>
+                    <a href="products/product5.pdf" download class="pdf-btn download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            <div class="product-name">Heavy Duty System H-100</div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose This Product Section -->
+<section class="why-choose">
+    <div class="left">
+        <h2 class="section-title">Why Our Products Stand Out</h2>
+        <div class="benefits-container">
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2E368F">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="benefit-content">
+                    <h3>Premium Quality Materials</h3>
+                    <p>Engineered for durability and long-lasting performance with industry-leading materials that withstand demanding conditions.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2E368F">
+                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                    </svg>
+                </div>
+                <div class="benefit-content">
+                    <h3>Cost-Effective Solutions</h3>
+                    <p>Competitive pricing structure that delivers exceptional value without compromising on quality or performance standards.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2E368F">
+                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
+                </div>
+                <div class="benefit-content">
+                    <h3>Streamlined Installation</h3>
+                    <p>Precision-engineered components designed for quick, hassle-free installation to minimize project downtime.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2E368F">
+                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/>
+                    </svg>
+                </div>
+                <div class="benefit-content">
+                    <h3>Sustainable Options</h3>
+                    <p>Environmentally conscious product lines that meet rigorous sustainability standards for green building projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+        <h2 class="section-title">Project Calculator</h2>
+        <form id="calculator">
+            <div class="form-group">
+                <label for="category">Product Category</label>
+                <select id="category" onchange="updateProducts()">
+                    <option value="">Select a category</option>
+                    <option value="structural">Structural Components</option>
+                    <option value="finishing">Finishing Materials</option>
+                    <option value="electrical">Electrical Systems</option>
+                    <option value="plumbing">Plumbing Solutions</option>
+                    <option value="insulation">Insulation Products</option>
+                    <option value="flooring">Flooring Systems</option>
+                    <option value="roofing">Roofing Materials</option>
+                    <option value="windows">Windows & Doors</option>
+                    <option value="hardware">Construction Hardware</option>
+                    <option value="specialty">Specialty Products</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="product">Product Selection</label>
+                <select id="product" disabled>
+                    <option value="">Please select category first</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Project Area (sq.m)</label>
+                <input type="number" id="area" placeholder="Enter area in square meters" min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity Needed</label>
+                <input type="number" id="quantity" placeholder="Enter quantity" min="1">
+            </div>
+
+            <button type="button" class="calculate-btn" onclick="calculatePrice()">
+                <span>Calculate Estimate</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+
+            <div class="result-container">
+                <div class="result-label">Estimated Total:</div>
+                <div class="result-value" id="total-price">$0.00</div>
+            </div>
+
+            <p class="disclaimer">Note: This estimate is for planning purposes only. Final pricing may vary based on project specifications and market conditions.</p>
+        </form>
+    </div>
+</section>
+
+
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-text">
+            <p class="animated-text">Connecting worlds through innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel magna sit amet nulla efficitur vestibulum.</p>
+        </div>
+        <div class="footer-links">
+            <div class="footer-links-col">
+                <a href="../about.html" class="hover-grow">About</a>
+                <a href="../solutions" class="hover-grow">Services</a>
+                <a href="../solutions" class="hover-grow">Products</a>
+                <a href="../projects.html" class="hover-grow">Projects</a>
+            </div>
+            <div class="footer-links-col">
+                <a href="../blog.html" class="hover-grow">News</a>
+                <a href="../contact.html" class="hover-grow">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Bottom Links -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-links">
+            <a href="/commitment.html" class="link-underline">Commitment</a>
+            <a href="/privacy.html" class="link-underline">Privacy Policy</a>
+            <a href="/legal.html" class="link-underline">Legal Information</a>
+            <a href="/suppliers.html" class="link-underline">Suppliers</a>
+            <a href="/cookie.html" class="link-underline">Cookie Policy</a>
+        </div>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="footer-line glow-line"></div>
+
+    <!-- Location Section -->
+    <div class="footer-locations">
+        <div class="location-container">
+            <a href="https://maps.google.com/maps?q=mainoffice+remera+1+kk+st.+4+mnamn" target="_blank" class="location-link">📍 Main Office, Remera 1 KK St. 4 Mnamn</a>
+            <a href="https://maps.google.com/maps?q=new+york" target="_blank" class="location-link">📍 New York</a>
+            <a href="https://maps.google.com/maps?q=london" target="_blank" class="location-link">📍 London</a>
+        </div>
+    </div>
+
+    <!-- Social Section -->
+    <div class="footer-social">
+        <p class="logo-glow">@HOMNA 2025</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon hover-float">
+                <img src="/assets/image/Linkedin.png" alt="Facebook">
+            </a>
+            <a href="#" class="social-icon hover-float">
+                <img src="/assets/image/X.png" alt="LinkedIn">
+            </a>
+            <a href="#" class="social-icon hover-float">
+                <img src="/assets/image/Insta.png" alt="LinkedIn">
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer Logo -->
+    <div class="footer-logo">
+        <p class="logo-glow">HOMNA</p>
+    </div>
+
+
+</footer>
+
+
+
+<script>
+    // Select all necessary elements
+   const hamburger = document.querySelector('.hamburger-menu');
+   const navOverlay = document.querySelector('.nav-overlay');
+   const menuContainer = document.querySelector('.menu-container');
+   const navLinks = document.querySelectorAll('.nav-links li');
+   const serviceLink = document.querySelector('.service-link');
+   const solutionsGrid = document.querySelector('.solutions-grid');
+   const goBackButton = document.querySelector('.go-back-button');
+   const returnPathButton = document.querySelector('.return-path-button');
+
+   // GSAP Timeline for overlay menu animations
+   const tl = gsap.timeline({ paused: true });
+
+   // Main menu animation timeline
+   tl.to(navOverlay, {
+     left: 0,
+     duration: 0.5,
+     ease: "power2.out"
+   })
+   .from(menuContainer, {
+     opacity: 0,
+     scale: 0.95,
+     duration: 0.3,
+     ease: "power2.out"
+   })
+   .from(navLinks, {
+     opacity: 0,
+     y: 20,
+     duration: 0.5,
+     stagger: 0.1,
+     ease: "power2.out"
+   }, "-=0.3");
+
+   // Return Path Button - Navigate back in history
+   returnPathButton.addEventListener('click', (e) => {
+     e.preventDefault();
+     history.back();
+   });
+
+   // Hamburger menu toggle functionality
+   hamburger.addEventListener('click', (e) => {
+     e.stopPropagation();
+
+     if (!navOverlay.classList.contains('active')) {
+       tl.play();
+       navOverlay.classList.add('active');
+       hamburger.classList.add('active');
+
+       // Ensure solutions grid is hidden when opening menu
+       solutionsGrid.classList.remove('active');
+     } else {
+       tl.reverse().then(() => {
+         navOverlay.classList.remove('active');
+         hamburger.classList.remove('active');
+       });
+     }
+   });
+
+   // Close menu when clicking outside
+   document.addEventListener('click', (e) => {
+     if (!e.target.closest('.nav-overlay') &&
+         navOverlay.classList.contains('active') &&
+         !solutionsGrid.classList.contains('active')) {
+       tl.reverse().then(() => {
+         navOverlay.classList.remove('active');
+         hamburger.classList.remove('active');
+       });
+     }
+   });
+
+   // Show solutions grid when clicking "Solution" link
+   serviceLink.addEventListener('click', (e) => {
+     e.preventDefault();
+     e.stopPropagation();
+
+     // First animate out the main menu content
+     gsap.to(menuContainer, {
+       opacity: 0,
+       duration: 0.3,
+       ease: "power2.out",
+       onComplete: () => {
+         menuContainer.style.display = 'none';
+
+         // Show solutions grid
+         solutionsGrid.classList.add('active');
+
+         // Hide other nav links
+         navLinks.forEach(link => {
+           if (!link.contains(serviceLink)) {
+             link.style.display = 'none';
+           }
+         });
+
+         // Animate in solutions grid items
+         gsap.from(solutionsGrid.children, {
+           opacity: 0,
+           y: 20,
+           stagger: 0.1,
+           duration: 0.5,
+           ease: "power2.out"
+         });
+       }
+     });
+   });
+
+   // Go back to main menu from solutions grid
+   goBackButton.addEventListener('click', (e) => {
+     e.preventDefault();
+     e.stopPropagation();
+
+     // Animate out solutions grid
+     gsap.to(solutionsGrid, {
+       opacity: 0,
+       y: -20,
+       duration: 0.3,
+       ease: "power2.out",
+       onComplete: () => {
+         solutionsGrid.classList.remove('active');
+
+         // Show all nav links again
+         navLinks.forEach(link => {
+           link.style.display = 'block';
+         });
+
+         // Show main menu container
+         menuContainer.style.display = 'flex';
+
+         // Animate main menu back in
+         gsap.fromTo(menuContainer,
+           { opacity: 0, scale: 0.95 },
+           {
+             opacity: 1,
+             scale: 1,
+             duration: 0.3,
+             ease: "power2.out"
+           }
+         );
+       }
+     });
+   });
+
+   // Close solutions grid when clicking outside (if open)
+   document.addEventListener('click', (e) => {
+     if (solutionsGrid.classList.contains('active') &&
+         !e.target.closest('.solutions-grid') &&
+         !e.target.closest('.service-link')) {
+       goBackButton.click();
+     }
+   });
+
+
+
+
+       // Sample product data for each category
+       const productsData = {
+           category1: [
+               { name: "Product 1A", price: 10 },
+               { name: "Product 1B", price: 15 },
+           ],
+           category2: [
+               { name: "Product 2A", price: 20 },
+               { name: "Product 2B", price: 25 },
+           ],
+           // Add more categories and products as needed
+       };
+
+       // Update products based on selected category
+       function updateProducts() {
+           const category = document.getElementById("category").value;
+           const productSelect = document.getElementById("product");
+           productSelect.innerHTML = ""; // Clear previous options
+
+           productsData[category].forEach(product => {
+               const option = document.createElement("option");
+               option.value = product.price;
+               option.textContent = product.name;
+               productSelect.appendChild(option);
+           });
+       }
+
+       // Calculate total price
+       function calculatePrice() {
+           const area = document.getElementById("area").value;
+           const productPrice = document.getElementById("product").value;
+           const total = area * productPrice;
+
+           document.getElementById("total-price").innerText = `Total: $${total.toFixed(2)}`;
+       }
+
+       // Initialize products on page load
+       updateProducts();
+
+</script>
+</body>
+</html>
