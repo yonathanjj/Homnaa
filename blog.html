@@ -6,10 +6,6 @@
   <title>Blog - Homna ltd</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <link rel="stylesheet" href="assets/css/blog.css">
-  <!-- Marked.js for Markdown parsing -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <!-- YAML parser for frontmatter -->
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -105,181 +101,68 @@
     <span class="close" onclick="closePopup()">&times;</span>
     <h2 id="popup-title"></h2>
     <img id="popup-image" src="" alt="">
-    <div id="popup-text"></div>
+    <p id="popup-text"></p>
   </div>
 </div>
 
 <!-- Blog Posts Section -->
 <div class="container">
   <h1 class="section-title">News and blogs</h1>
-  <div class="blog-grid" id="featured-posts">
+
+  <div class="blog-grid">
     <!-- Left Column (Text Content) -->
-    <div class="left-column" id="left-post"></div>
+    <div class="left-column">
+      <div class="blog-card center-blog-text" onclick="openPopup('Arup signs MoU with industry leaders', 'https://picsum.photos/530/520', 'Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...')">
+        <h2 class="blog-title">Arup signs MoU with industry leaders to promote nature inclusivity</h2>
+        <p class="blog-excerpt">Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...</p>
+        <div class="date">13th December 2024</div>
+      </div>
+    </div>
 
     <!-- Center Column (Main Blog) -->
-    <div class="center-column" id="center-post"></div>
+    <div class="center-column">
+      <div class="blog-card center-blog" onclick="openPopup('Main Blog Post', 'https://picsum.photos/530/520', 'Main blog post content goes here...')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/530/520')"></div>
+      </div>
+    </div>
 
     <!-- Right Column (Side Blog) -->
-    <div class="right-column" id="right-post"></div>
+    <div class="right-column">
+      <div class="blog-card right-blog" onclick="openPopup('Yantai City\'s Sun Tower opens in China', 'https://picsum.photos/330/240', 'Yantai City has inaugurated its iconic Sun Tower, blending modern architecture with cultural heritage.')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/330/240')"></div>
+        <h3 class="blog-title">Yantai City's Sun Tower opens in China</h3>
+        <div class="date">12th December 2024</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Latest Posts Section -->
 <section class="container">
   <h2 class="section-title">Latest Posts</h2>
-  <div class="posts-grid" id="latest-posts">
-    <!-- Posts will be inserted here by JavaScript -->
+  <div class="posts-grid">
+    <!-- Post 1 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 1', 'assets/image/2.jpeg', 'This is the content of Blog Post 1.')">
+      <div class="post-image" style="background-image: url('assets/image/2.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 1</h3>
+      <span class="post-date">March 15, 2024</span>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 2', 'assets/image/1.jpeg', 'This is the content of Blog Post 2.')">
+      <div class="post-image" style="background-image: url('assets/image/1.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 2</h3>
+      <span class="post-date">March 16, 2024</span>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 3', 'assets/image/3.jpeg', 'This is the content of Blog Post 3.This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1')">
+      <div class="post-image" style="background-image: url('assets/image/3.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 3</h3>
+      <span class="post-date">March 17, 2024</span>
+    </div>
   </div>
 </section>
-
-<script>
-  // ===== BLOG POST LOADING =====
-  async function loadBlogPosts() {
-      try {
-          // Load featured posts
-          const featuredPosts = await Promise.all([
-              fetchMarkdownPost('content/blog/featured/arup-mou.md'),
-              fetchMarkdownPost('content/blog/featured/main-blog.md'),
-              fetchMarkdownPost('content/blog/featured/yantai-tower.md')
-          ]);
-
-          // Render featured posts
-          renderFeaturedPosts(featuredPosts);
-
-          // Load latest posts
-          const latestPosts = await Promise.all([
-              fetchMarkdownPost('content/blog/latest/post1.md'),
-              fetchMarkdownPost('content/blog/latest/post2.md'),
-              fetchMarkdownPost('content/blog/latest/post3.md')
-          ]);
-
-          // Render latest posts
-          renderLatestPosts(latestPosts);
-
-          // Initialize animations AFTER content is loaded
-          initAnimations();
-
-      } catch (error) {
-          console.error("Error loading posts:", error);
-      }
-  }
-
-  async function fetchMarkdownPost(path) {
-      const response = await fetch(path);
-      const md = await response.text();
-      const [_, frontmatter, content] = md.match(/---\n([\s\S]+?)\n---\n([\s\S]+)/) || [];
-      return {
-          ...jsyaml.load(frontmatter),
-          body: marked.parse(content.trim())
-      };
-  }
-
-  function renderFeaturedPosts(posts) {
-      // Left Post
-      document.getElementById('left-post').innerHTML = `
-          <div class="blog-card center-blog-text"
-              onclick="openPopup('${posts[0].title}', '${posts[0].image}', '${posts[0].body}')">
-              <h2 class="blog-title">${posts[0].title}</h2>
-              <p class="blog-excerpt">${posts[0].excerpt}</p>
-              <div class="date">${formatDate(posts[0].date)}</div>
-          </div>
-      `;
-
-      // Center Post
-      document.getElementById('center-post').innerHTML = `
-          <div class="blog-card center-blog"
-              onclick="openPopup('${posts[1].title}', '${posts[1].image}', '${posts[1].body}')">
-              <div class="blog-image" style="background-image: url('${posts[1].image}')"></div>
-          </div>
-      `;
-
-      // Right Post
-      document.getElementById('right-post').innerHTML = `
-          <div class="blog-card right-blog"
-              onclick="openPopup('${posts[2].title}', '${posts[2].image}', '${posts[2].body}')">
-              <div class="blog-image" style="background-image: url('${posts[2].image}')"></div>
-              <h3 class="blog-title">${posts[2].title}</h3>
-              <div class="date">${formatDate(posts[2].date)}</div>
-          </div>
-      `;
-  }
-
-  function renderLatestPosts(posts) {
-      const container = document.getElementById('latest-posts');
-      container.innerHTML = posts.map(post => `
-          <div class="post-card"
-              onclick="openPopup('${post.title}', '${post.image}', '${post.body}')">
-              <div class="post-image" style="background-image: url('${post.image}')"></div>
-              <h3 class="post-title">${post.title}</h3>
-              <span class="post-date">${formatDate(post.date)}</span>
-          </div>
-      `).join('');
-  }
-
-  function formatDate(dateString) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-  }
-
-  // ===== EXISTING FUNCTIONALITY =====
-  function initAnimations() {
-      // GSAP Animations
-      gsap.to(".blog-card", {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          scrollTrigger: {
-              trigger: ".container",
-              start: "top center"
-          }
-      });
-
-      gsap.from(".post-card", {
-          duration: 0.8,
-          autoAlpha: 0,
-          y: 30,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-              trigger: ".posts-grid",
-              start: "top 80%"
-          }
-      });
-  }
-
-  function openPopup(title, image, content) {
-      const popup = document.querySelector('.popup');
-      const popupTitle = document.getElementById('popup-title');
-      const popupImage = document.getElementById('popup-image');
-      const popupText = document.getElementById('popup-text');
-
-      popupTitle.textContent = title;
-      popupImage.src = image;
-      popupText.innerHTML = content;
-
-      popup.style.display = 'flex';
-      setTimeout(() => {
-          popup.classList.add('show');
-      }, 50);
-
-      // Close the popup when clicking outside
-      popup.addEventListener('click', (e) => {
-          if (e.target === popup) closePopup();
-      });
-  }
-
-  function closePopup() {
-      const popup = document.querySelector('.popup');
-      popup.classList.remove('show');
-      setTimeout(() => {
-          popup.style.display = 'none';
-      }, 300);
-  }
-
-  // Load everything when DOM is ready
-  document.addEventListener('DOMContentLoaded', loadBlogPosts);
-</script>
 
 
 <footer class="footer">
