@@ -108,40 +108,31 @@
 <!-- Blog Posts Section -->
 <div class="container">
   <h1 class="section-title">News and blogs</h1>
+
   <div class="blog-grid">
-    <!-- Left Column (Featured Post) -->
+    <!-- Left Column (Text Content) -->
     <div class="left-column">
-      {% for post in site.posts %}
-      {% if post.featured %}
-      <div class="blog-card center-blog-text"
-           onclick="openPopup('{{ post.title }}', '{{ post.image }}', '{{ post.content | strip_html }}')">
-        <h2 class="blog-title">{{ post.title }}</h2>
-        <p class="blog-excerpt">{{ post.excerpt }}</p>
-        <div class="date">{{ post.date | date: "%d %B %Y" }}</div>
+      <div class="blog-card center-blog-text" onclick="openPopup('Arup signs MoU with industry leaders', 'https://picsum.photos/530/520', 'Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...')">
+        <h2 class="blog-title">Arup signs MoU with industry leaders to promote nature inclusivity</h2>
+        <p class="blog-excerpt">Leading engineering firm Arup has announced a new partnership with major industry players to integrate ecological considerations into offshore wind farm development...</p>
+        <div class="date">13th December 2024</div>
       </div>
-      {% endif %}
-      {% endfor %}
     </div>
 
-    <!-- Center Column (Hardcoded Main Blog - Optional) -->
+    <!-- Center Column (Main Blog) -->
     <div class="center-column">
-      <div class="blog-card center-blog"
-           onclick="openPopup('Main Blog Post', '/assets/image/main-blog.jpg', 'Main blog post content...')">
-        <div class="blog-image" style="background-image: url('/assets/image/main-blog.jpg')"></div>
+      <div class="blog-card center-blog" onclick="openPopup('Main Blog Post', 'https://picsum.photos/530/520', 'Main blog post content goes here...')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/530/520')"></div>
       </div>
     </div>
 
-    <!-- Right Column (Second Featured Post) -->
+    <!-- Right Column (Side Blog) -->
     <div class="right-column">
-      {% assign secondary_featured = site.posts | where: "featured", true | slice: 1, 1 %}
-      {% for post in secondary_featured %}
-      <div class="blog-card right-blog"
-           onclick="openPopup('{{ post.title }}', '{{ post.image }}', '{{ post.content | strip_html }}')">
-        <div class="blog-image" style="background-image: url('{{ post.image }}')"></div>
-        <h3 class="blog-title">{{ post.title }}</h3>
-        <div class="date">{{ post.date | date: "%d %B %Y" }}</div>
+      <div class="blog-card right-blog" onclick="openPopup('Yantai City\'s Sun Tower opens in China', 'https://picsum.photos/330/240', 'Yantai City has inaugurated its iconic Sun Tower, blending modern architecture with cultural heritage.')">
+        <div class="blog-image" style="background-image: url('https://picsum.photos/330/240')"></div>
+        <h3 class="blog-title">Yantai City's Sun Tower opens in China</h3>
+        <div class="date">12th December 2024</div>
       </div>
-      {% endfor %}
     </div>
   </div>
 </div>
@@ -150,14 +141,26 @@
 <section class="container">
   <h2 class="section-title">Latest Posts</h2>
   <div class="posts-grid">
-    {% for post in site.posts limit:3 %}
-    <div class="post-card"
-         onclick="openPopup('{{ post.title }}', '{{ post.image }}', '{{ post.content | strip_html }}')">
-      <div class="post-image" style="background-image: url('{{ post.image }}')"></div>
-      <h3 class="post-title">{{ post.title }}</h3>
-      <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+    <!-- Post 1 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 1', 'assets/image/2.jpeg', 'This is the content of Blog Post 1.')">
+      <div class="post-image" style="background-image: url('assets/image/2.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 1</h3>
+      <span class="post-date">March 15, 2024</span>
     </div>
-    {% endfor %}
+
+    <!-- Post 2 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 2', 'assets/image/1.jpeg', 'This is the content of Blog Post 2.')">
+      <div class="post-image" style="background-image: url('assets/image/1.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 2</h3>
+      <span class="post-date">March 16, 2024</span>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post-card" onclick="openPopup('Blog Post Title 3', 'assets/image/3.jpeg', 'This is the content of Blog Post 3.This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1This is the content of Blog Post 1')">
+      <div class="post-image" style="background-image: url('assets/image/3.jpeg')"></div>
+      <h3 class="post-title">Blog Post Title 3</h3>
+      <span class="post-date">March 17, 2024</span>
+    </div>
   </div>
 </section>
 
