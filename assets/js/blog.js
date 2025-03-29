@@ -224,30 +224,23 @@ document.addEventListener('click', (e) => {
         });
 
 
-        function openPopup(title, image, content) {
-            const popup = document.querySelector('.popup');
-            const popupTitle = document.getElementById('popup-title');
-            const popupImage = document.getElementById('popup-image');
-            const popupText = document.getElementById('popup-text');
+       function openPopup(title, image, content) {
+         const popup = document.querySelector('.popup');
+         const popupTitle = document.getElementById('popup-title');
+         const popupImage = document.getElementById('popup-image');
+         const popupText = document.getElementById('popup-text');
 
-            // Set content dynamically
-            popupTitle.textContent = title;
-            popupImage.src = image;
-            popupText.textContent = content;
+         popupTitle.textContent = title;
+         popupImage.src = image;
+         popupText.innerHTML = content; // Changed to innerHTML to preserve Markdown
 
-            // Display the popup
-            popup.style.display = 'flex';
-            setTimeout(() => {
-                popup.classList.add('show');
-            }, 50);
-
-            // Close the popup when clicking outside the content area
-            popup.addEventListener('click', (e) => {
-                if (e.target === popup) {
-                    closePopup();
-                }
-            });
-        }
+         // GSAP animation for popup
+         gsap.to(popup, {
+           autoAlpha: 1,
+           duration: 0.3,
+           display: 'flex'
+         });
+       }
 
         function closePopup() {
             const popup = document.querySelector('.popup');
