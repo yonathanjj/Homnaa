@@ -1,0 +1,37 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "about"
+        label: "About Page"
+        file: "content/about/index.md"
+        fields:
+          # Hero Section
+          - { name: "hero_image", label: "Hero Background Image", widget: "image" }
+          - { name: "hero_title", label: "Hero Title", widget: "string" }
+          - { name: "hero_description", label: "Hero Description", widget: "text" }
+
+          # Content Section
+          - { name: "sticky_heading", label: "Sticky Heading", widget: "string" }
+          - { name: "mission", label: "Mission", widget: "markdown" }
+          - { name: "vision", label: "Vision", widget: "markdown" }
+          - { name: "commitment", label: "Commitment", widget: "markdown" }
+
+  - name: "team"
+    label: "Team Members"
+    folder: "content/about/team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "name", label: "Full Name", widget: "string" }
+      - { name: "image", label: "Profile Photo", widget: "image" }
+      - { name: "role", label: "Role/Title", widget: "string" }
+      - { name: "bio", label: "Bio", widget: "text" }
+      - { name: "linkedin", label: "LinkedIn URL", widget: "string" }
