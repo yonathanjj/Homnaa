@@ -1,10 +1,11 @@
 [build]
 publish = "."
 
+[identity]
+enabled = true
+
 [[redirects]]
 from = "/admin/*"
 to = "/admin/index.html"
 status = 200
-
-[[plugins]]
-package = "@netlify/plugin-lighthouse"
+force = true
