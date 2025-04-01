@@ -150,186 +150,148 @@ document.addEventListener('click', (e) => {
 
 
 
-  // GSAP Animations
-        gsap.to(".blog-card", {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: ".container",
-                start: "top center"
-            }
-        });
+ // Function to fetch blog posts
+ async function fetchBlogPosts() {
+   try {
+     const response = await fetch('/content/blog/index.json');
+     if (!response.ok) {
+       throw new Error('Network response was not ok');
+     }
+     const posts = await response.json();
+     return posts;
+   } catch (error) {
+     console.error('Error fetching blog posts:', error);
+     return [];
+   }
+ }
 
-        // GSAP Animations
-        // Hover animation
-        gsap.utils.toArray(".post-image-container").forEach(container => {
-            gsap.to(container.querySelector(".post-image"), {
-                scale: 1,
-                paused: true,
-                ease: "power2.out"
-            });
+ // Function to render featured posts
+ function renderFeaturedPosts(posts) {
+   // Sort posts by date (newest first)
+   const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            container.addEventListener("mouseenter", () => {
-                gsap.to(container.querySelector(".post-image"), {
-                    scale: 1.05,
-                    duration: 0.4
-                });
-            });
+   // Get featured posts (first 3)
+   const featuredPosts = sortedPosts.slice(0, 3);
 
-            container.addEventListener("mouseleave", () => {
-                gsap.to(container.querySelector(".post-image"), {
-                    scale: 1,
-                    duration: 0.4
-                });
-            });
-        });
+   // Render left column (text content)
+   if (featuredPosts[0]) {
+     const leftColumn = document.getElementById('featured-text-post');
+     leftColumn.innerHTML = `
+       <div class="blog-card center-blog-text" onclick="openPopup('${featuredPosts[0].title}', '${featuredPosts[0].featured_image}', '${featuredPosts[0].content}')">
+         <h2 class="blog-title">${featuredPosts[0].title}</h2>
+         <p class="blog-excerpt">${featuredPosts[0].excerpt}</p>
+         <div class="date">${formatDate(featuredPosts[0].date)}</div>
+       </div>
+     `;
+   }
 
-        // Popup functionality
-        gsap.utils.toArray("[data-popup]").forEach(trigger => {
-            const popup = document.querySelector(trigger.dataset.popup);
-            const closeBtn = popup.querySelector(".close-btn");
+   // Render center column (main image)
+   if (featuredPosts[1]) {
+     const centerColumn = document.getElementById('featured-image-post');
+     centerColumn.innerHTML = `
+       <div class="blog-card center-blog" onclick="openPopup('${featuredPosts[1].title}', '${featuredPosts[1].featured_image}', '${featuredPosts[1].content}')">
+         <div class="blog-image" style="background-image: url('${featuredPosts[1].featured_image}')"></div>
+       </div>
+     `;
+   }
 
-            // Open popup
-            trigger.addEventListener("click", () => {
-                gsap.to(popup, {
-                    autoAlpha: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
+   // Render right column (side blog)
+   if (featuredPosts[2]) {
+     const rightColumn = document.getElementById('secondary-featured-post');
+     rightColumn.innerHTML = `
+       <div class="blog-card right-blog" onclick="openPopup('${featuredPosts[2].title}', '${featuredPosts[2].featured_image}', '${featuredPosts[2].content}')">
+         <div class="blog-image" style="background-image: url('${featuredPosts[2].featured_image}')"></div>
+         <h3 class="blog-title">${featuredPosts[2].title}</h3>
+         <div class="date">${formatDate(featuredPosts[2].date)}</div>
+       </div>
+     `;
+   }
+ }
 
-            // Close popup
-            closeBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                gsap.to(popup, {
-                    autoAlpha: 0,
-                    duration: 0.2
-                });
-            });
-        });
+ // Function to render latest posts
+ function renderLatestPosts(posts) {
+   const latestPostsContainer = document.getElementById('latest-posts');
+   // Sort posts by date (newest first) and skip the first 3 featured posts
+   const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+   const latestPosts = sortedPosts.slice(3);
 
-        // Initial animation
-        gsap.from(".post-card", {
-            duration: 0.8,
-            autoAlpha: 0,
-            y: 30,
-            stagger: 0.15,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".posts-grid",
-                start: "top 80%"
-            }
-        });
+   latestPostsContainer.innerHTML = latestPosts.map(post => `
+     <div class="post-card" onclick="openPopup('${post.title}', '${post.featured_image}', '${post.content}')">
+       <div class="post-image" style="background-image: url('${post.featured_image}')"></div>
+       <h3 class="post-title">${post.title}</h3>
+       <span class="post-date">${formatDate(post.date)}</span>
+     </div>
+   `).join('');
+ }
 
+ // Helper function to format date
+ function formatDate(dateString) {
+   const date = new Date(dateString);
+   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+   return date.toLocaleDateString('en-US', options);
+ }
 
-        function openPopup(title, image, content) {
-            const popup = document.querySelector('.popup');
-            const popupTitle = document.getElementById('popup-title');
-            const popupImage = document.getElementById('popup-image');
-            const popupText = document.getElementById('popup-text');
+ // Initialize the page
+ async function initBlogPage() {
+   const posts = await fetchBlogPosts();
+   renderFeaturedPosts(posts);
+   renderLatestPosts(posts);
 
-            // Set content dynamically
-            popupTitle.textContent = title;
-            popupImage.src = image;
-            popupText.textContent = content;
+   // Initialize GSAP animations
+   gsap.to(".blog-card", {
+     opacity: 1,
+     y: 0,
+     duration: 1,
+     stagger: 0.2,
+     scrollTrigger: {
+       trigger: ".container",
+       start: "top center"
+     }
+   });
 
-            // Display the popup
-            popup.style.display = 'flex';
-            setTimeout(() => {
-                popup.classList.add('show');
-            }, 50);
+   gsap.from(".post-card", {
+     duration: 0.8,
+     autoAlpha: 0,
+     y: 30,
+     stagger: 0.15,
+     ease: "power2.out",
+     scrollTrigger: {
+       trigger: ".posts-grid",
+       start: "top 80%"
+     }
+   });
+ }
 
-            // Close the popup when clicking outside the content area
-            popup.addEventListener('click', (e) => {
-                if (e.target === popup) {
-                    closePopup();
-                }
-            });
-        }
+ // Keep your existing popup functions
+ function openPopup(title, image, content) {
+   const popup = document.querySelector('.popup');
+   const popupTitle = document.getElementById('popup-title');
+   const popupImage = document.getElementById('popup-image');
+   const popupText = document.getElementById('popup-text');
 
-        function closePopup() {
-            const popup = document.querySelector('.popup');
-            popup.classList.remove('show');
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 300);
-        }
+   popupTitle.textContent = title;
+   popupImage.src = image;
+   popupText.innerHTML = marked.parse(content); // Using marked.js to parse markdown
 
+   popup.style.display = 'flex';
+   setTimeout(() => {
+     popup.classList.add('show');
+   }, 50);
 
+   popup.addEventListener('click', (e) => {
+     if (e.target === popup) {
+       closePopup();
+     }
+   });
+ }
 
-// Select elements
-const infoModalOverlay = document.querySelector('.info-modal-overlay');
-const infoModalContent = document.querySelector('.info-modal-content');
-const infoModalTitle = document.querySelector('.info-modal-title');
-const infoModalText = document.querySelector('.info-modal-text');
-const closeInfoModal = document.querySelector('.close-info-modal');
-const footerLinks = document.querySelectorAll('.footer-bottom-links a');
+ function closePopup() {
+   const popup = document.querySelector('.popup');
+   popup.classList.remove('show');
+   setTimeout(() => {
+     popup.style.display = 'none';
+   }, 300);
+ }
 
-// Info Modal content data
-const infoModalData = {
-  commitment: {
-    title: "Our Commitment",
-    text: "At HOMNA, we are committed to delivering innovative solutions that connect worlds and drive progress. We prioritize sustainability, quality, and customer satisfaction in everything we do."
-  },
-  "privacy-policy": {
-    title: "Privacy Policy",
-    text: "Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information. We adhere to strict data protection standards to ensure your information is safe."
-  },
-  "legal-info": {
-    title: "Legal Information",
-    text: "This section provides legal information about our company, including terms of use, disclaimers, and intellectual property rights. Please review this information carefully before using our services."
-  },
-  suppliers: {
-    title: "Suppliers",
-    text: "We work with trusted suppliers who share our commitment to quality and sustainability. Our supplier network is carefully vetted to ensure the highest standards of service and reliability."
-  },
-  "cookie-policy": {
-    title: "Cookie Policy",
-    text: "Our Cookie Policy explains how we use cookies and similar technologies to enhance your experience on our website. You can manage your cookie preferences at any time."
-  }
-};
-
-// Show info modal
-footerLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const modalId = link.getAttribute('data-modal');
-    const data = infoModalData[modalId];
-
-    infoModalTitle.textContent = data.title;
-    infoModalText.textContent = data.text;
-    infoModalOverlay.classList.add('active');
-  });
-});
-
-// Close info modal
-closeInfoModal.addEventListener('click', () => {
-  infoModalOverlay.classList.remove('active');
-});
-
-// Close info modal when clicking outside
-infoModalOverlay.addEventListener('click', (e) => {
-  if (e.target === infoModalOverlay) {
-    infoModalOverlay.classList.remove('active');
-  }
-});
-
-footerLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log("Link clicked:", link.getAttribute('data-modal')); // Debugging
-    const modalId = link.getAttribute('data-modal');
-    const data = infoModalData[modalId];
-
-    if (data) {
-      console.log("Data found:", data); // Debugging
-      infoModalTitle.textContent = data.title;
-      infoModalText.textContent = data.text;
-      infoModalOverlay.classList.add('active');
-    } else {
-      console.log("No data found for:", modalId); // Debugging
-    }
-  });
-});
+ // Initialize when DOM is loaded
+ document.addEventListener('DOMContentLoaded', initBlogPage);
