@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog - Homna ltd</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  <!-- Netlify Create SDK -->
-  <script src="https://unpkg.com/@netlify/create@latest/dist/netlify-create.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/@netlify/create@latest/dist/netlify-create.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <link rel="stylesheet" href="assets/css/blog.css">
 </head>
 <body>
@@ -109,36 +110,31 @@
 </div>
 
 <!-- Blog Posts Section -->
-<div class="container" data-netlify-create-page="blog" data-netlify-create-section="blog_grid">
-  <h1 class="section-title" data-netlify-create-field="sections.blog_grid.section_title">News and blogs</h1>
-
+<div class="container">
+  <h1 class="section-title">News and blogs</h1>
   <div class="blog-grid">
     <!-- Left Column -->
-    <div class="left-column" data-netlify-create-item="sections.blog_grid.featured_posts" data-netlify-create-index="0">
-      <div class="blog-card center-blog-text" onclick="openPopup(...)">
-        <h2 class="blog-title" data-netlify-create-field="title">{{Post Title}}</h2>
-        <p class="blog-excerpt" data-netlify-create-field="excerpt">{{Excerpt}}</p>
-        <div class="date" data-netlify-create-field="date">{{Date}}</div>
-      </div>
+    <div class="left-column" id="featured-text-post">
+      <!-- Content loaded dynamically -->
     </div>
 
     <!-- Center Column -->
-    <div class="center-column" data-netlify-create-item="sections.blog_grid.featured_posts" data-netlify-create-index="1">
-      <!-- Similar structure -->
+    <div class="center-column" id="featured-image-post">
+      <!-- Content loaded dynamically -->
     </div>
 
     <!-- Right Column -->
-    <div class="right-column" data-netlify-create-item="sections.blog_grid.featured_posts" data-netlify-create-index="2">
-      <!-- Similar structure -->
+    <div class="right-column" id="secondary-featured-post">
+      <!-- Content loaded dynamically -->
     </div>
   </div>
 </div>
 
 <!-- Latest Posts Section -->
-<section class="container" data-netlify-create-section="latest_posts">
-  <h2 class="section-title" data-netlify-create-field="sections.latest_posts.section_title">Latest Posts</h2>
-  <div class="posts-grid" data-netlify-create-list="posts">
-    <!-- Posts will be loaded dynamically -->
+<section class="container">
+  <h2 class="section-title">Latest Posts</h2>
+  <div class="posts-grid" id="latest-posts">
+    <!-- Posts loaded dynamically -->
   </div>
 </section>
 
