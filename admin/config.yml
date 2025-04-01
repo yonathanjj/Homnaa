@@ -1,47 +1,11 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main # Branch to update (master in older repos)
 
-media_folder: "assets/image"
-public_folder: "/assets/image"
+media_folder: "assets/image" # Media files will be stored here
+public_folder: "/assets/image" # Public path for media files
 
 collections:
-  - name: "pages"
-    label: "Pages"
-    files:
-      - label: "Blog Page"
-        name: "blog"
-        file: "blog.html"
-        fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-          - label: "Sections"
-            name: "sections"
-            widget: "list"
-            types:
-              - label: "Hero Section"
-                name: "hero"
-                widget: "object"
-                fields:
-                  - {label: "Title", name: "title", widget: "string"}
-                  - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
-
-              - label: "Blog Grid"
-                name: "blog_grid"
-                widget: "object"
-                fields:
-                  - {label: "Section Title", name: "section_title", widget: "string"}
-                  - label: "Featured Posts"
-                    name: "featured_posts"
-                    widget: "list"
-                    fields:
-                      - {label: "Post", name: "post", widget: "relation", collection: "blog", value_field: "title", display_fields: ["title"]}
-
-              - label: "Latest Posts"
-                name: "latest_posts"
-                widget: "object"
-                fields:
-                  - {label: "Section Title", name: "section_title", widget: "string"}
-
   - name: "blog"
     label: "Blog Posts"
     folder: "content/blog"
@@ -54,5 +18,5 @@ collections:
       - {label: "Excerpt", name: "excerpt", widget: "text"}
       - {label: "Content", name: "content", widget: "markdown"}
       - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Featured Post", name: "featured", widget: "boolean", default: false}
       - {label: "Category", name: "category", widget: "select", options: ["News", "Articles", "Updates"]}

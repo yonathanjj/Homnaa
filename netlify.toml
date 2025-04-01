@@ -2,20 +2,10 @@
 command = "echo 'No build needed'"
 publish = "."
 
-[[plugins]]
-package = "@netlify/plugin-lighthouse"
-
-[dev]
-framework = "#custom"
-command = "echo 'No dev server needed'"
-targetPort = 3000
-port = 3000
-
 [[redirects]]
 from = "/admin/*"
 to = "/admin/index.html"
 status = 200
-force = true
 
 [[redirects]]
 from = "/*"
