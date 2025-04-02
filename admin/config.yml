@@ -1,8 +1,8 @@
 backend:
   name: git-gateway
-  branch: main # your branch name
+  branch: main
 
-media_folder: "assets/image" # where uploaded images go
+media_folder: "assets/image"
 public_folder: "/assets/image"
 
 collections:
@@ -15,8 +15,6 @@ collections:
         fields:
           - { name: "hero_image", label: "Hero Image", widget: "image" }
           - { name: "hero_header", label: "Hero Header", widget: "string" }
-          - { name: "hero_description", label: "Hero Description", widget: "text" }
-          - { name: "sticky_heading", label: "Left Side Heading", widget: "string" }
           - label: "Content Blocks"
             name: "content_blocks"
             widget: "list"
