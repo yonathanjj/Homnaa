@@ -1,32 +1,42 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main  # Your Git branch
 
-media_folder: "assets/image"
-public_folder: "/assets/image"
+media_folder: "static/uploads"  # Stores uploaded images
+public_folder: "/uploads"
 
 collections:
-  - name: "pages"
-    label: "Pages"
+  # About Page Content
+  - name: "about"
+    label: "About Page"
     files:
-      - name: "about"
-        label: "About Page"
-        file: "about.html"
+      # Hero Section
+      - file: "content/about/hero.md"
+        label: "Hero Section"
         fields:
-          - { name: "hero_image", label: "Hero Image", widget: "image" }
-          - { name: "hero_header", label: "Hero Header", widget: "string" }
-          - label: "Content Blocks"
-            name: "content_blocks"
-            widget: "list"
-            fields:
-              - { name: "title", label: "Title", widget: "string" }
-              - { name: "content", label: "Content", widget: "markdown" }
-          - label: "Team Members"
-            name: "team_members"
-            widget: "list"
-            fields:
-              - { name: "name", label: "Name", widget: "string" }
-              - { name: "position", label: "Position", widget: "string" }
-              - { name: "description", label: "Description", widget: "text" }
-              - { name: "image", label: "Image", widget: "image" }
-              - { name: "linkedin", label: "LinkedIn URL", widget: "string", required: false }
+          - { name: "title", label: "Hero Title", widget: "string" }
+          - { name: "description", label: "Hero Description", widget: "text" }
+          - { name: "background_image", label: "Hero Background Image", widget: "image" }
+
+      # Mission/Vision/Commitment Blocks
+      - file: "content/about/content.md"
+        label: "Content Blocks"
+        fields:
+          - { name: "mission_title", label: "Mission Title", widget: "string" }
+          - { name: "mission_text", label: "Mission Text", widget: "markdown" }
+          - { name: "vision_title", label: "Vision Title", widget: "string" }
+          - { name: "vision_text", label: "Vision Text", widget: "markdown" }
+          - { name: "commitment_title", label: "Commitment Title", widget: "string" }
+          - { name: "commitment_text", label: "Commitment Text", widget: "markdown" }
+
+      # Team Members (Repeatable)
+      - file: "content/about/team.md"
+        label: "Team Members"
+        fields:
+          - { name: "team_members", label: "Team", widget: "list", fields: [
+            { name: "name", label: "Name", widget: "string" },
+            { name: "role", label: "Role", widget: "string" },
+            { name: "bio", label: "Bio", widget: "text" },
+            { name: "image", label: "Photo", widget: "image" },
+            { name: "linkedin", label: "LinkedIn URL", widget: "string" }
+          ] }
