@@ -150,185 +150,160 @@ document.addEventListener('click', (e) => {
 
 
 
-// Function to escape HTML (security improvement)
-function escapeHtml(unsafe) {
-  if (!unsafe) return '';
-  return unsafe.toString()
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+ // assets/js/blog.js
 
-// Function to fetch blog posts
-async function fetchBlogPosts() {
-  try {
-    const response = await fetch('/content/blog/index.json');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const posts = await response.json();
-    return posts;
-  } catch (error) {
-    console.error('Error fetching blog posts:', error);
-    return [];
-  }
-}
+ document.addEventListener('DOMContentLoaded', function() {
+   fetchBlogPosts();
+ });
 
-// Function to render featured posts
-function renderFeaturedPosts(posts) {
-  // Sort posts by date (newest first)
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+ async function fetchBlogPosts() {
+   try {
+     const response = await fetch('/_data/blog/index.json');
+     const posts = await response.json();
 
-  // Get featured posts (first 3)
-  const featuredPosts = sortedPosts.slice(0, 3);
+     // Sort posts by date (newest first)
+     const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Render left column (text content)
-  if (featuredPosts[0]) {
-    const leftColumn = document.getElementById('featured-text-post');
-    leftColumn.innerHTML = `
-      <div class="blog-card center-blog-text"
-           onclick="openPopup('${escapeHtml(featuredPosts[0].title)}',
-                   '${escapeHtml(featuredPosts[0].featured_image)}',
-                   '${escapeHtml(featuredPosts[0].content)}')">
-        <h2 class="blog-title">${escapeHtml(featuredPosts[0].title)}</h2>
-        <p class="blog-excerpt">${escapeHtml(featuredPosts[0].excerpt)}</p>
-        <div class="date">${formatDate(featuredPosts[0].date)}</div>
-      </div>
-    `;
-  }
+     renderFeaturedPosts(sortedPosts);
+     renderLatestPosts(sortedPosts);
+   } catch (error) {
+     console.error('Error loading blog posts:', error);
+     // Fallback to hardcoded content if CMS fails
+     renderFallbackContent();
+   }
+ }
 
-  // Render center column (main image)
-  if (featuredPosts[1]) {
-    const centerColumn = document.getElementById('featured-image-post');
-    centerColumn.innerHTML = `
-      <div class="blog-card center-blog"
-           onclick="openPopup('${escapeHtml(featuredPosts[1].title)}',
-                   '${escapeHtml(featuredPosts[1].featured_image)}',
-                   '${escapeHtml(featuredPosts[1].content)}')">
-        <div class="blog-image" style="background-image: url('${escapeHtml(featuredPosts[1].featured_image)}')"></div>
-      </div>
-    `;
-  }
+ function renderFeaturedPosts(posts) {
+   const blogGrid = document.querySelector('.blog-grid');
+   if (!blogGrid) return;
 
-  // Render right column (side blog)
-  if (featuredPosts[2]) {
-    const rightColumn = document.getElementById('secondary-featured-post');
-    rightColumn.innerHTML = `
-      <div class="blog-card right-blog"
-           onclick="openPopup('${escapeHtml(featuredPosts[2].title)}',
-                   '${escapeHtml(featuredPosts[2].featured_image)}',
-                   '${escapeHtml(featuredPosts[2].content)}')">
-        <div class="blog-image" style="background-image: url('${escapeHtml(featuredPosts[2].featured_image)}')"></div>
-        <h3 class="blog-title">${escapeHtml(featuredPosts[2].title)}</h3>
-        <div class="date">${formatDate(featuredPosts[2].date)}</div>
-      </div>
-    `;
-  }
-}
+   // Clear existing hardcoded content
+   blogGrid.innerHTML = `
+     <div class="left-column"></div>
+     <div class="center-column"></div>
+     <div class="right-column"></div>
+   `;
 
-// Function to render latest posts
-function renderLatestPosts(posts) {
-  const latestPostsContainer = document.getElementById('latest-posts');
-  // Sort posts by date (newest first) and skip the first 3 featured posts
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const latestPosts = sortedPosts.slice(3);
+   const leftColumn = blogGrid.querySelector('.left-column');
+   const centerColumn = blogGrid.querySelector('.center-column');
+   const rightColumn = blogGrid.querySelector('.right-column');
 
-  latestPostsContainer.innerHTML = latestPosts.map(post => `
-    <div class="post-card"
-         onclick="openPopup('${escapeHtml(post.title)}',
-                 '${escapeHtml(post.featured_image)}',
-                 '${escapeHtml(post.content)}')">
-      <div class="post-image" style="background-image: url('${escapeHtml(post.featured_image)}')"></div>
-      <h3 class="post-title">${escapeHtml(post.title)}</h3>
-      <span class="post-date">${formatDate(post.date)}</span>
-    </div>
-  `).join('');
-}
+   // Get featured posts (first 3)
+   const featuredPosts = posts.slice(0, 3);
 
-// Helper function to format date
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
-}
+   if (featuredPosts[0]) {
+     leftColumn.innerHTML = createBlogCard(featuredPosts[0], 'left');
+   }
 
-// Initialize Netlify Identity
-function initIdentity() {
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-}
+   if (featuredPosts[1]) {
+     centerColumn.innerHTML = createBlogCard(featuredPosts[1], 'center');
+   }
 
-// Initialize the page
-async function initBlogPage() {
-  initIdentity(); // Initialize Netlify Identity
-  const posts = await fetchBlogPosts();
-  renderFeaturedPosts(posts);
-  renderLatestPosts(posts);
+   if (featuredPosts[2]) {
+     rightColumn.innerHTML = createBlogCard(featuredPosts[2], 'right');
+   }
+ }
 
-  // Initialize GSAP animations
-  gsap.to(".blog-card", {
-    opacity: 1,
-    y: 0,
-    duration: 1,
-    stagger: 0.2,
-    scrollTrigger: {
-      trigger: ".container",
-      start: "top center"
-    }
-  });
+ function renderLatestPosts(posts) {
+   const postsGrid = document.querySelector('.posts-grid');
+   if (!postsGrid) return;
 
-  gsap.from(".post-card", {
-    duration: 0.8,
-    autoAlpha: 0,
-    y: 30,
-    stagger: 0.15,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: ".posts-grid",
-      start: "top 80%"
-    }
-  });
-}
+   // Clear existing hardcoded content
+   postsGrid.innerHTML = '';
 
-// Popup functions
-function openPopup(title, image, content) {
-  const popup = document.querySelector('.popup');
-  const popupTitle = document.getElementById('popup-title');
-  const popupImage = document.getElementById('popup-image');
-  const popupText = document.getElementById('popup-text');
+   // Get latest posts (skip first 3 featured ones)
+   const latestPosts = posts.slice(3, 6);
 
-  popupTitle.textContent = title;
-  popupImage.src = image;
-  popupText.innerHTML = marked.parse(content);
+   latestPosts.forEach(post => {
+     postsGrid.innerHTML += createPostCard(post);
+   });
 
-  popup.style.display = 'flex';
-  setTimeout(() => {
-    popup.classList.add('show');
-  }, 50);
+   // Reinitialize GSAP animations for new elements
+   initGSAPAnimations();
+ }
 
-  popup.addEventListener('click', (e) => {
-    if (e.target === popup) {
-      closePopup();
-    }
-  });
-}
+ function createBlogCard(post, position) {
+   const formattedDate = formatDate(new Date(post.date));
 
-function closePopup() {
-  const popup = document.querySelector('.popup');
-  popup.classList.remove('show');
-  setTimeout(() => {
-    popup.style.display = 'none';
-  }, 300);
-}
+   if (position === 'left') {
+     return `
+       <div class="blog-card center-blog-text" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.excerpt)}')">
+         <h2 class="blog-title">${post.title}</h2>
+         <p class="blog-excerpt">${post.excerpt}</p>
+         <div class="date">${formattedDate}</div>
+       </div>
+     `;
+   } else if (position === 'center') {
+     return `
+       <div class="blog-card center-blog" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.body)}')">
+         <div class="blog-image" style="background-image: url('${post.image}')"></div>
+       </div>
+     `;
+   } else { // right
+     return `
+       <div class="blog-card right-blog" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.excerpt)}')">
+         <div class="blog-image" style="background-image: url('${post.image}')"></div>
+         <h3 class="blog-title">${post.title}</h3>
+         <div class="date">${formattedDate}</div>
+       </div>
+     `;
+   }
+ }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', initBlogPage);
+ function createPostCard(post) {
+   const formattedDate = formatDate(new Date(post.date));
+
+   return `
+     <div class="post-card" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.body)}')">
+       <div class="post-image" style="background-image: url('${post.image}')"></div>
+       <h3 class="post-title">${post.title}</h3>
+       <span class="post-date">${formattedDate}</span>
+     </div>
+   `;
+ }
+
+ function formatDate(date) {
+   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+   return date.toLocaleDateString('en-US', options);
+ }
+
+ function escapeHtml(unsafe) {
+   if (!unsafe) return '';
+   return unsafe
+     .replace(/&/g, "&amp;")
+     .replace(/</g, "&lt;")
+     .replace(/>/g, "&gt;")
+     .replace(/"/g, "&quot;")
+     .replace(/'/g, "&#039;");
+ }
+
+ function renderFallbackContent() {
+   // You can keep your original hardcoded content here as fallback
+   console.log('Using fallback content');
+ }
+
+ function initGSAPAnimations() {
+   // Reinitialize your GSAP animations for dynamically loaded content
+   gsap.to(".blog-card", {
+     opacity: 1,
+     y: 0,
+     duration: 1,
+     stagger: 0.2,
+     scrollTrigger: {
+       trigger: ".container",
+       start: "top center"
+     }
+   });
+
+   gsap.from(".post-card", {
+     duration: 0.8,
+     autoAlpha: 0,
+     y: 30,
+     stagger: 0.15,
+     ease: "power2.out",
+     scrollTrigger: {
+       trigger: ".posts-grid",
+       start: "top 80%"
+     }
+   });
+ }con

@@ -1,32 +1,16 @@
-backend:
-  name: git-gateway
-  branch: main
-  commit_messages:
-    create: "Create {{collection}} “{{slug}}”"
-    update: "Update {{collection}} “{{slug}}”"
-    delete: "Delete {{collection}} “{{slug}}”"
-    uploadMedia: "Upload “{{path}}”"
-    deleteMedia: "Delete “{{path}}”"
-
-# Media storage
-media_folder: "assets/images" # Where uploaded files go
-public_folder: "/assets/images" # Public URL path
-media_library:
-  name: uploadcare
-  config:
-    publicKey: "demopublickey"
-
-# Content collections
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "content/blog"
+    folder: "_data/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "image", widget: "image",
-         media_library: { allow_multiple: false }}
-      - {label: "Excerpt", name: "excerpt", widget: "text"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "image", widget: "image" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
