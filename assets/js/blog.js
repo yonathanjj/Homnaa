@@ -150,160 +150,186 @@ document.addEventListener('click', (e) => {
 
 
 
- // assets/js/blog.js
+ // GSAP Animations
+        gsap.to(".blog-card", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: ".container",
+                start: "top center"
+            }
+        });
 
- document.addEventListener('DOMContentLoaded', function() {
-   fetchBlogPosts();
- });
+        // GSAP Animations
+        // Hover animation
+        gsap.utils.toArray(".post-image-container").forEach(container => {
+            gsap.to(container.querySelector(".post-image"), {
+                scale: 1,
+                paused: true,
+                ease: "power2.out"
+            });
 
- async function fetchBlogPosts() {
-   try {
-     const response = await fetch('/_data/blog/index.json');
-     const posts = await response.json();
+            container.addEventListener("mouseenter", () => {
+                gsap.to(container.querySelector(".post-image"), {
+                    scale: 1.05,
+                    duration: 0.4
+                });
+            });
 
-     // Sort posts by date (newest first)
-     const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            container.addEventListener("mouseleave", () => {
+                gsap.to(container.querySelector(".post-image"), {
+                    scale: 1,
+                    duration: 0.4
+                });
+            });
+        });
 
-     renderFeaturedPosts(sortedPosts);
-     renderLatestPosts(sortedPosts);
-   } catch (error) {
-     console.error('Error loading blog posts:', error);
-     // Fallback to hardcoded content if CMS fails
-     renderFallbackContent();
-   }
- }
+        // Popup functionality
+        gsap.utils.toArray("[data-popup]").forEach(trigger => {
+            const popup = document.querySelector(trigger.dataset.popup);
+            const closeBtn = popup.querySelector(".close-btn");
 
- function renderFeaturedPosts(posts) {
-   const blogGrid = document.querySelector('.blog-grid');
-   if (!blogGrid) return;
+            // Open popup
+            trigger.addEventListener("click", () => {
+                gsap.to(popup, {
+                    autoAlpha: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
 
-   // Clear existing hardcoded content
-   blogGrid.innerHTML = `
-     <div class="left-column"></div>
-     <div class="center-column"></div>
-     <div class="right-column"></div>
-   `;
+            // Close popup
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                gsap.to(popup, {
+                    autoAlpha: 0,
+                    duration: 0.2
+                });
+            });
+        });
 
-   const leftColumn = blogGrid.querySelector('.left-column');
-   const centerColumn = blogGrid.querySelector('.center-column');
-   const rightColumn = blogGrid.querySelector('.right-column');
+        // Initial animation
+        gsap.from(".post-card", {
+            duration: 0.8,
+            autoAlpha: 0,
+            y: 30,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".posts-grid",
+                start: "top 80%"
+            }
+        });
 
-   // Get featured posts (first 3)
-   const featuredPosts = posts.slice(0, 3);
 
-   if (featuredPosts[0]) {
-     leftColumn.innerHTML = createBlogCard(featuredPosts[0], 'left');
-   }
+        function openPopup(title, image, content) {
+            const popup = document.querySelector('.popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupImage = document.getElementById('popup-image');
+            const popupText = document.getElementById('popup-text');
 
-   if (featuredPosts[1]) {
-     centerColumn.innerHTML = createBlogCard(featuredPosts[1], 'center');
-   }
+            // Set content dynamically
+            popupTitle.textContent = title;
+            popupImage.src = image;
+            popupText.textContent = content;
 
-   if (featuredPosts[2]) {
-     rightColumn.innerHTML = createBlogCard(featuredPosts[2], 'right');
-   }
- }
+            // Display the popup
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                popup.classList.add('show');
+            }, 50);
 
- function renderLatestPosts(posts) {
-   const postsGrid = document.querySelector('.posts-grid');
-   if (!postsGrid) return;
+            // Close the popup when clicking outside the content area
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    closePopup();
+                }
+            });
+        }
 
-   // Clear existing hardcoded content
-   postsGrid.innerHTML = '';
+        function closePopup() {
+            const popup = document.querySelector('.popup');
+            popup.classList.remove('show');
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
 
-   // Get latest posts (skip first 3 featured ones)
-   const latestPosts = posts.slice(3, 6);
 
-   latestPosts.forEach(post => {
-     postsGrid.innerHTML += createPostCard(post);
-   });
 
-   // Reinitialize GSAP animations for new elements
-   initGSAPAnimations();
- }
+// Select elements
+const infoModalOverlay = document.querySelector('.info-modal-overlay');
+const infoModalContent = document.querySelector('.info-modal-content');
+const infoModalTitle = document.querySelector('.info-modal-title');
+const infoModalText = document.querySelector('.info-modal-text');
+const closeInfoModal = document.querySelector('.close-info-modal');
+const footerLinks = document.querySelectorAll('.footer-bottom-links a');
 
- function createBlogCard(post, position) {
-   const formattedDate = formatDate(new Date(post.date));
+// Info Modal content data
+const infoModalData = {
+  commitment: {
+    title: "Our Commitment",
+    text: "At HOMNA, we are committed to delivering innovative solutions that connect worlds and drive progress. We prioritize sustainability, quality, and customer satisfaction in everything we do."
+  },
+  "privacy-policy": {
+    title: "Privacy Policy",
+    text: "Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information. We adhere to strict data protection standards to ensure your information is safe."
+  },
+  "legal-info": {
+    title: "Legal Information",
+    text: "This section provides legal information about our company, including terms of use, disclaimers, and intellectual property rights. Please review this information carefully before using our services."
+  },
+  suppliers: {
+    title: "Suppliers",
+    text: "We work with trusted suppliers who share our commitment to quality and sustainability. Our supplier network is carefully vetted to ensure the highest standards of service and reliability."
+  },
+  "cookie-policy": {
+    title: "Cookie Policy",
+    text: "Our Cookie Policy explains how we use cookies and similar technologies to enhance your experience on our website. You can manage your cookie preferences at any time."
+  }
+};
 
-   if (position === 'left') {
-     return `
-       <div class="blog-card center-blog-text" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.excerpt)}')">
-         <h2 class="blog-title">${post.title}</h2>
-         <p class="blog-excerpt">${post.excerpt}</p>
-         <div class="date">${formattedDate}</div>
-       </div>
-     `;
-   } else if (position === 'center') {
-     return `
-       <div class="blog-card center-blog" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.body)}')">
-         <div class="blog-image" style="background-image: url('${post.image}')"></div>
-       </div>
-     `;
-   } else { // right
-     return `
-       <div class="blog-card right-blog" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.excerpt)}')">
-         <div class="blog-image" style="background-image: url('${post.image}')"></div>
-         <h3 class="blog-title">${post.title}</h3>
-         <div class="date">${formattedDate}</div>
-       </div>
-     `;
-   }
- }
+// Show info modal
+footerLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const modalId = link.getAttribute('data-modal');
+    const data = infoModalData[modalId];
 
- function createPostCard(post) {
-   const formattedDate = formatDate(new Date(post.date));
+    infoModalTitle.textContent = data.title;
+    infoModalText.textContent = data.text;
+    infoModalOverlay.classList.add('active');
+  });
+});
 
-   return `
-     <div class="post-card" onclick="openPopup('${escapeHtml(post.title)}', '${post.image}', '${escapeHtml(post.body)}')">
-       <div class="post-image" style="background-image: url('${post.image}')"></div>
-       <h3 class="post-title">${post.title}</h3>
-       <span class="post-date">${formattedDate}</span>
-     </div>
-   `;
- }
+// Close info modal
+closeInfoModal.addEventListener('click', () => {
+  infoModalOverlay.classList.remove('active');
+});
 
- function formatDate(date) {
-   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-   return date.toLocaleDateString('en-US', options);
- }
+// Close info modal when clicking outside
+infoModalOverlay.addEventListener('click', (e) => {
+  if (e.target === infoModalOverlay) {
+    infoModalOverlay.classList.remove('active');
+  }
+});
 
- function escapeHtml(unsafe) {
-   if (!unsafe) return '';
-   return unsafe
-     .replace(/&/g, "&amp;")
-     .replace(/</g, "&lt;")
-     .replace(/>/g, "&gt;")
-     .replace(/"/g, "&quot;")
-     .replace(/'/g, "&#039;");
- }
+footerLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("Link clicked:", link.getAttribute('data-modal')); // Debugging
+    const modalId = link.getAttribute('data-modal');
+    const data = infoModalData[modalId];
 
- function renderFallbackContent() {
-   // You can keep your original hardcoded content here as fallback
-   console.log('Using fallback content');
- }
-
- function initGSAPAnimations() {
-   // Reinitialize your GSAP animations for dynamically loaded content
-   gsap.to(".blog-card", {
-     opacity: 1,
-     y: 0,
-     duration: 1,
-     stagger: 0.2,
-     scrollTrigger: {
-       trigger: ".container",
-       start: "top center"
-     }
-   });
-
-   gsap.from(".post-card", {
-     duration: 0.8,
-     autoAlpha: 0,
-     y: 30,
-     stagger: 0.15,
-     ease: "power2.out",
-     scrollTrigger: {
-       trigger: ".posts-grid",
-       start: "top 80%"
-     }
-   });
- }con
+    if (data) {
+      console.log("Data found:", data); // Debugging
+      infoModalTitle.textContent = data.title;
+      infoModalText.textContent = data.text;
+      infoModalOverlay.classList.add('active');
+    } else {
+      console.log("No data found for:", modalId); // Debugging
+    }
+  });
+});
