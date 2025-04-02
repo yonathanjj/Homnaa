@@ -1,3 +1,10 @@
+backend:
+  name: git-gateway
+  branch: main # Make sure this matches your default branch
+
+media_folder: "assets/image" # Path where images will be stored
+public_folder: "/assets/image" # Public URL path for images
+
 collections:
   - name: "blog"
     label: "Blog Posts"
@@ -13,4 +20,3 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Featured", name: "featured", widget: "boolean", default: false }
